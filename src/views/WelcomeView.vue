@@ -1,97 +1,51 @@
 <script setup lang="ts">
-import HomeComponent from '../components/Home.vue'
-import { RouterLink, RouterView } from 'vue-router'
-import Divider from 'primevue/divider';
-import Card from 'primevue/card'; 
+import Card from 'primevue/card';
 import Button from 'primevue/button';
-import Panel from 'primevue/panel';
 
-import { useAuth0, type Auth0VueClient } from '@auth0/auth0-vue';
+import { useAuth0, type RedirectLoginOptions, type Auth0VueClient } from '@auth0/auth0-vue';
 
-const auth0:Auth0VueClient = useAuth0();
+const auth0: Auth0VueClient = useAuth0();
 
-async function handleLogin(){
-    try{
-        auth0.loginWithRedirect();
-    }catch(e){
+async function handleLogin(options?: RedirectLoginOptions) {
+    try {
+        await auth0.loginWithRedirect(options);
+    } catch (e) {
         console.error(e);
     }
 }
-
 </script>
 
 <template>
-    <div class="two-cards-container">
-        <p-card class="left-panel-card">
-            <template #title>
-                Painel Principal
-            </template>
-            <template #content>
-                <p>Este é o conteúdo do painel da esquerda, ocupando 60% da largura disponível.</p>
-                <p>O tema Aura definirá a aparência deste card.</p>
-            </template>
-        </p-card>
+    <div class="flex flex-col md:flex-row p-6 gap-6 w-full h-auto md:h-screen box-border">
 
-        <p-card class="right-panel-card">
-            <template #title>
-                Menu Lateral
-            </template>
-            <template #subtitle>
-                Opções
-            </template>
+        <Card
+            class="w-full md:w-3/5"
+            :pt="{
+                root: { class: 'flex flex-col h-full' },
+                body: { class: 'flex flex-col flex-grow h-full' },
+                content: { class: 'flex-grow p-0' }
+            }"
+        >
             <template #content>
-                <p>Painel da direita, com 40%.</p>
-                <div class="button-stack">
-                    <p-button label="Continue" icon="pi pi-cog"></p-button>
+                <div class="flex flex-col justify-center items-center gap-6 h-full w-full">
+                    <h2 class="text-4xl font-semibold text-surface-800 dark:text-surface-100">Bem vindo</h2>
                 </div>
             </template>
-            <template #footer>
-                <p-button @onclick="handleLogin" label="Salvar" icon="pi pi-check" size="small"></p-button>
+        </Card>
+
+        <Card
+            class="w-full md:w-2/5"
+            :pt="{
+                root: { class: 'flex flex-col h-full' },
+                body: { class: 'flex flex-col flex-grow h-full' },
+                content: { class: 'flex-grow p-0' }
+            }">
+            <template #content>
+                <div class="flex flex-col justify-center items-center gap-6 h-full w-full">
+                    <h2 class="text-3xl font-semibold text-surface-800 dark:text-surface-100">Início</h2>
+                    <Button @click="() => handleLogin()" label="Continuar" size="large"></Button>
+                </div>
             </template>
-        </p-card>
+        </Card>
     </div>
 </template>
-
-
-<style scoped>
-.two-cards-container {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    padding: 1rem;
-    gap: 1rem;
-    box-sizing: border-box;
-    background-color: var(--p-surface-ground, #f0f2f5);
-}
-
-.left-panel-card {
-    flex: 0 0 60%;
-    display: flex;
-    flex-direction: column;
-}
-
-.right-panel-card {
-    flex: 0 0 calc(40% - 1rem);
-    display: flex;
-    flex-direction: column;
-}
-
-:deep(.p-card) {
-    height: 100%;
-}
-
-:deep(.p-card-content) {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.button-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1rem;
-}
-
-</style>

@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import HomeComponent from '../components/Home.vue'
-import { RouterLink, RouterView } from 'vue-router'
+// 1. Importa o SEU layout e os componentes que irão DENTRO dele
+import { ref } from 'vue';
+import PanelMenu from 'primevue/panelmenu';               
+import Button from 'primevue/button';                      
+import { useAuth0 } from '@auth0/auth0-vue';               // Para os dados do usuário
+import Avatar from 'primevue/avatar';                      
+import AppLayout from '@/layout/DefaultLayout.vue';
+
+const { user, logout } = useAuth0();
+
 
 </script>
 
 <template>
-  <main>
-    <HomeComponent>
-      <RouterLink to="/login">Fazer Login</RouterLink>
-      <RouterLink to="/register">Fazer Registro</RouterLink>
-    </HomeComponent>
+  <div>
     
-  </main>
+  </div>
 </template>

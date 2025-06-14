@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HomeView from './views/HomeView.vue'
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div id="app">
+  <div class="bg-surface-50 dark:bg-surface-950 min-h-screen p-2 flex flex-col gap-6">
     <RouterView/>
   </div>
 </template>
 
 <style scoped>
-#app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+
 </style>
